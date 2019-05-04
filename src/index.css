@@ -12,3 +12,36 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.number_container {
+  align-items: center;
+  text-align: center;
+  width: 300px;
+  max-width: 40%;
+  height: 300px;
+  box-shadow: 10px 10px 5px grey
+}
+.number_button {
+  border: none;
+  width: 33.3333%;
+  height: 100%;
+  background-color: transparent;
+  color: #EEFEFD;
+  /* font-family: Arial; */
+  font-size: 3em;
+}
+
+.number_row {
+background-color: #9ABCB8;
+height: 33.333%
+}
+.top_number_row {
+  border-bottom: 1px solid #EEFEFD;
+}
+.bottom_number_row {
+  border-top: 1px solid #EEFEFD;
+}
+.middle_number {
+  border-left: 1px solid #EEFEFD;
+  border-right: 1px solid #EEFEFD;
+}
