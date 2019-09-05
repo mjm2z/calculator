@@ -1,136 +1,94 @@
 
 
-
-.button_container{
-  width: 270px;
-  margin: auto;
-  border: 2px solid black;
-}
-.zero_cell{
+.calculator_container {
+  background-color: black;
+  width: 300px;
+  display: block;
+  border-radius: 8%;
+  margin: 70px auto;
+  padding-top: 40px;
+  padding-bottom: 20px; 
   position: relative;
+  text-align: center;
+}
+input {
+  background-color: black;;
+  color: white;
+  text-align: right;
+  /* border: none; */
+  width: 75%;
+  font-size: 50px;
+  height: 60px;
   margin: 0;
   padding: 0;
-  content: '';
-  background-image: linear-gradient(to top right, white 60%, #3a4ed5 100%);
-  z-index:-1;
   
 }
-.one_cell{
-  position: relative;
-  margin: 0;
-  padding: 0;
-  content: '';
-  background-image: linear-gradient(to right, white 45%, #3a4ed5 100%);
-  width: 90px;
-  height:90px;
-  z-index:-1;
+::placeholder{
+  color: white;
+  font-size: 40px
 }
+input:focus{
+  outline:0;
+}
+.button_container{
+  color: white;
+  width: 260px;
+  height: 325px;
+  margin: auto;
+}
+
+.zero_cell{
+  width: 150px;
+  height: 65px;
+}
+button:focus{
+  outline:0 !important;
+}
+.button_cell{
+  align-items: center;
+  width: 65px;
+  height: 65px;
+  margin: auto;
+}
+
 .two_cell{
-  position: relative;
-  margin: 0;
-  padding: 0;
-  content: '';
-  background-image: linear-gradient(to right, #3a4ed5 0%, #3a4ed5 100%);
-  width: 90px;
-  height:90px;
-  z-index:-1;
+
 }
 .three_cell{
-  position: relative;
-  margin: 0;
-  padding: 0;
-  content: '';
-  background-image: linear-gradient(to left, white 45%, #3a4ed5 100%);
-  width: 90px;
-  height:90px;
-  z-index:-1;
+
 }
 .four_cell{
-  position: relative;
-  margin: 0;
-  padding: 0;
-  content: '';
-  background-image: linear-gradient(to right, white 45%, #3a4ed5 100%);
-  width: 90px;
-  height:90px;
-  z-index:-1;
+
 }
 .five_cell{
-  position: relative;
-  margin: 0;
-  padding: 0;
-  content: '';
-  background-image: linear-gradient(to right, #3a4ed5 0%, #3a4ed5 100%);
-  width: 90px;
-  height:90px;
-  z-index:-1;
+
   
 }
 .six_cell{
-  position: relative;
-  margin: 0;
-  padding: 0;
-  content: '';
-  background-image: linear-gradient(to left, white 45%, #3a4ed5 100%);
-  width: 90px;
-  height:90px;
-  z-index:-1;
+
 }
 .seven_cell{
-  position: relative;
-  margin: 0;
-  padding: 0;
-  content: '';
-  background-image: linear-gradient(to bottom right, white 72%, #3a4ed5 100%);
-  width: 90px;
-  height:90px;
-  z-index:-1;
+
 }
 .eight_cell{
-  position: relative;
-  margin: 0;
-  padding: 0;
-  content: '';
-  background-image: linear-gradient(to bottom, white 45%, #3a4ed5 100%);
-  width: 90px;
-  height:90px;
-  z-index:-1;
+
 }
 .nine_cell{
-  position: relative;
-  margin: 0;
-  padding: 0;
-  content: '';
-  background-image: linear-gradient(to bottom left, white 72%, #3a4ed5 100%);
-  width: 90px;
-  height:90px;
-  z-index:-1;
+
 } 
 .button{
-  width: 70%;
-  height: 70%;
-  background: white;
-  color: none;
-  padding: 0;
-  margin: auto;
-  cursor: pointer;
-  border: 2px solid white;
-  /* border-radius: 20px; */
+  border-radius: 50px;
+  width: 95%;
+  height: 95%;
+
+
 }
 .zero_button{
-  width: 90%;
-  height: 80%;
-  background: white;
-  color: none;
-  padding: 0;
-  margin: auto;
-  cursor: pointer;
-  border: 2px solid white;
+  border-radius: 50px 50px 50px 50px;
+  width: 95%;
+  height: 95%;
+  text-align: left;
 }
 td {
-  text-align: center;
-  width: 90px;
-  height: 90px;
-  padding: 0;
-  margin: 0;
+
 }
