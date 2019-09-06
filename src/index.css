@@ -1,8 +1,9 @@
 
+@import url('https://fonts.googleapis.com/css?family=IBM+Plex+Sans&display=swap');
 
 .calculator_container {
   background-color: black;
-  width: 300px;
+  width: 320px;
   display: block;
   border-radius: 8%;
   margin: 70px auto;
@@ -15,80 +16,85 @@ input {
   background-color: black;;
   color: white;
   text-align: right;
-  /* border: none; */
+  border: none;
   width: 75%;
-  font-size: 50px;
-  height: 60px;
+  font-size:65px;
+  height: 150px;
   margin: 0;
-  padding: 0;
-  
+  padding: 55px 0 0 0;
+  font-family: 'IBM Plex', Arial;
+  font-weight: 100;
 }
 ::placeholder{
+  text-decoration: none;
   color: white;
-  font-size: 40px
+  font-size: 65px;
+  font-family: 'IBM Plex', Arial;
+  font-weight: 100;
+
 }
 input:focus{
   outline:0;
 }
 .button_container{
   color: white;
-  width: 260px;
-  height: 325px;
+  width: 300px;
+  height: 360px;
   margin: auto;
+  text-align: center;
+}
+.operation_buttons{
+  background-color: #FF8300;
+  border: none;
+  color: white;
+  font-size: 30px;
+}
+.top_row_buttons{
+  background-color: lightgrey;
+  border: none;
+  font-size: 20px;
+}
+.number_buttons{
+  background-color: grey;
+  border: none;
+  color: white;
+  font-size: 25px;
 }
 
 .zero_cell{
   width: 150px;
   height: 65px;
 }
+
 button:focus{
   outline:0 !important;
 }
 .button_cell{
   align-items: center;
-  width: 65px;
-  height: 65px;
+  width: 70px;
+  height: 70px;
   margin: auto;
 }
-
-.two_cell{
-
+.button_table{
+  margin: auto;
 }
-.three_cell{
-
-}
-.four_cell{
-
-}
-.five_cell{
-
-  
-}
-.six_cell{
-
-}
-.seven_cell{
-
-}
-.eight_cell{
-
-}
-.nine_cell{
-
-} 
 .button{
   border-radius: 50px;
-  width: 95%;
-  height: 95%;
-
-
+  width: 87%;
+  height: 87%;
+  font-family: 'IBM Plex', Arial;
+  font-weight: 100;
+}
+.button:after {
+  background-color: blue;
+  opacity: 0;
+  transition: 0s
 }
 .zero_button{
   border-radius: 50px 50px 50px 50px;
-  width: 95%;
-  height: 95%;
+  width: 93%;
+  height: 87%;
   text-align: left;
-}
-td {
-
+  padding-left: 20px;
+  margin-left: 1px;
 }
