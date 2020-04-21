@@ -1,5 +1,4 @@
-
-@import url('https://fonts.googleapis.com/css?family=IBM+Plex+Sans&display=swap');
+@import url("https://fonts.googleapis.com/css?family=IBM+Plex+Sans&display=swap");
 
 .calculator_container {
   background-color: black;
@@ -8,89 +7,88 @@
   border-radius: 8%;
   margin: 70px auto;
   padding-top: 40px;
-  padding-bottom: 20px; 
+  padding-bottom: 20px;
   position: relative;
   text-align: center;
 }
 input {
-  background-color: black;;
+  background-color: black;
   color: white;
   text-align: right;
   border: none;
   width: 75%;
-  font-size:65px;
+  font-size: 65px;
   height: 150px;
   margin: 0;
   padding: 55px 0 0 0;
-  font-family: 'IBM Plex', Arial;
+  font-family: "IBM Plex", Arial;
   font-weight: 100;
 }
-::placeholder{
+::placeholder {
   text-decoration: none;
   color: white;
   font-size: 65px;
-  font-family: 'IBM Plex', Arial;
+  font-family: "IBM Plex", Arial;
   font-weight: 100;
-
 }
-input:focus{
-  outline:0;
+input:focus {
+  outline: 0;
 }
-.button_container{
+.button_container {
   color: white;
   width: 300px;
   height: 360px;
   margin: auto;
   text-align: center;
 }
-.operation_buttons{
-  background-color: #FF8300;
+.operation_buttons {
+  background-color: #ff8300;
   border: none;
   color: white;
   font-size: 30px;
 }
-.top_row_buttons{
+.top_row_buttons {
   background-color: lightgrey;
   border: none;
   font-size: 20px;
 }
-.number_buttons{
+.number_buttons {
   background-color: grey;
   border: none;
   color: white;
   font-size: 25px;
 }
 
-.zero_cell{
+.zero_cell {
   width: 150px;
   height: 65px;
 }
 
-button:focus{
-  outline:0 !important;
+button:focus {
+  outline: 0 !important;
 }
-.button_cell{
+.button_cell {
   align-items: center;
   width: 70px;
   height: 70px;
   margin: auto;
 }
-.button_table{
+.button_table {
   margin: auto;
 }
-.button{
+.button {
   border-radius: 50px;
   width: 87%;
   height: 87%;
-  font-family: 'IBM Plex', Arial;
+  font-family: "IBM Plex", Arial;
   font-weight: 100;
 }
 .button:after {
   background-color: blue;
   opacity: 0;
-  transition: 0s
+  transition: 0s;
 }
-.zero_button{
+.zero_button {
   border-radius: 50px 50px 50px 50px;
   width: 93%;
   height: 87%;

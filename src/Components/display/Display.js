@@ -4,7 +4,7 @@ class Display extends Component {
   render() {
     return (
       <div className="display_container">
-          <input type="text" placeholder="0" disabled></input>
+        <input type="text" placeholder="0" disabled></input>
       </div>
     );
   }
