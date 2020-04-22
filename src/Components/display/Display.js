@@ -6,7 +6,6 @@ import flow from "lodash.flow";
 
 import "bootstrap/dist/css/bootstrap.css";
 class Display extends Component {
-  displayValue() {}
   render() {
     return (
       <div className="display_container">

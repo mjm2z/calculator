@@ -5,14 +5,14 @@
   "dependencies": {
     "bootstrap": "^4.3.1",
     "lodash.flow": "^3.5.0",
+    "mathjs": "^6.6.4",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-redux": "^7.1.1",
     "react-scripts": "3.0.0",
     "redux": "^4.0.4",
     "redux-promise-middleware": "^6.1.1",
-    "redux-thunk": "^2.3.0",
-    "string-calculator": "^1.0.1"
+    "redux-thunk": "^2.3.0"
   },
   "scripts": {
     "start": "react-scripts start",
