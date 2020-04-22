@@ -47,6 +47,10 @@ input:focus {
   color: white;
   font-size: 30px;
 }
+.operation_buttons.active {
+  background-color: white;
+  color: #ff8300;
+}
 .top_row_buttons {
   background-color: lightgrey;
   border: none;
