@@ -4,8 +4,7 @@ import PropTypes from "prop-types";
 import { actions, selectors } from "../../redux";
 import { connect } from "react-redux";
 import flow from "lodash.flow";
-import stringCalculator from 'string-calculator'
-
+import stringCalculator from "string-calculator";
 
 class Buttons extends Component {
   constructor(props) {
@@ -17,34 +16,44 @@ class Buttons extends Component {
   // - Add color effect to selected operators
   // / Add functionality for top buttons
   // - Add functionality for equals
-  // Update button text to what they were before making them dynamic
+  // - Update button text to what they were before making them dynamic
   // Shrink text as number gets larger
   // Add symbol to indicate negative that isn't affected by operation overriding
   // Add percent functionality -> need to think through this
   // Clean up code / extra files
   // Add tests
   // Bug at 099=. -> doesn't show 99. shows 0
-  // Maybe put current value in redux to make it easier for negative/positive state
+  // - Maybe put current value in redux to make it easier for negative/positive state
+  // Clicking pos/neg causes negative button to highlight
 
   handleEquals() {
-   this.props.setEquation(stringCalculator(this.props.equation));
+    this.props.setEquation(stringCalculator(this.props.equation));
 
     // pass equation string into api
   }
   handleButtonClick(e) {
     const { equation } = this.props;
-    if ( e === "AC") {
+    if (e === "AC") {
       this.props.setEquation("0");
-    } 
-    else if (isNaN(e) && e !== "." && isNaN(equation[equation.length-1])){
-      this.props.setEquation(equation.slice(0, equation.length-1) + e);
+    } else if (isNaN(e) && e !== "." && isNaN(equation[equation.length - 1])) {
+      this.props.setEquation(equation.slice(0, equation.length - 1) + e);
     } else {
       e === "=" ? this.handleEquals() : this.props.setEquation(equation + e);
-
     }
-    
-    // decimal checker
 
+    // decimal checker
+  }
+  getButtonDisplayText(value) {
+    switch (value) {
+      case "AC":
+        return this.props.equation === "0" ? "C" : "AC";
+      case "/":
+        return "÷";
+      case "*":
+        return "×";
+      default:
+        return value;
+    }
   }
   renderButtons() {
     console.log("Rendering buttons");
@@ -73,7 +82,6 @@ class Buttons extends Component {
       buttonArray.splice(4 * index + 3, 0, operationButtons[index]);
     }
 
-
     // Create array for all the cells in the table
     const rowCount = 5;
     const colCount = 4;
@@ -89,14 +97,17 @@ class Buttons extends Component {
         let currentIndex = 4 * outerIndex + innerIndex;
         let buttonClass = "button number_buttons";
         if (topRowButtons.includes(buttonArray[currentIndex])) {
-          buttonClass ="button top_row_buttons"
-        } else if(operationButtons.includes(buttonArray[currentIndex])) {
-          buttonClass = this.props.equation.charAt(this.props.equation.length-1) === buttonArray[currentIndex] && buttonArray[currentIndex] !== "=" ? "button operation_buttons active" : "button operation_buttons";
-
-          
+          buttonClass = "button top_row_buttons";
+        } else if (operationButtons.includes(buttonArray[currentIndex])) {
+          buttonClass =
+            this.props.equation.charAt(this.props.equation.length - 1) ===
+              buttonArray[currentIndex] && buttonArray[currentIndex] !== "="
+              ? "button operation_buttons active"
+              : "button operation_buttons";
         } else if (buttonArray[currentIndex] === "0") {
           buttonClass = "zero_button number_buttons";
         }
+
         buttonCellArray.push(
           <td
             className="button_cell"
@@ -108,7 +119,7 @@ class Buttons extends Component {
               onClick={() => this.handleButtonClick(buttonArray[currentIndex])}
               active="true"
             >
-              {buttonArray[currentIndex]}
+              {this.getButtonDisplayText(buttonArray[currentIndex])}
             </button>
           </td>
         );
