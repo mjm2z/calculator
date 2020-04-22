@@ -4,8 +4,7 @@ import PropTypes from "prop-types";
 import { actions, selectors } from "../../redux";
 import { connect } from "react-redux";
 import flow from "lodash.flow";
-import stringCalculator from 'string-calculator'
-
+import stringCalculator from "string-calculator";
 
 class Buttons extends Component {
   constructor(props) {
@@ -28,32 +27,29 @@ class Buttons extends Component {
   // Clicking pos/neg causes negative button to highlight
 
   handleEquals() {
-   this.props.setEquation(stringCalculator(this.props.equation));
+    this.props.setEquation(stringCalculator(this.props.equation));
 
     // pass equation string into api
   }
   handleButtonClick(e) {
     const { equation } = this.props;
-    if ( e === "AC") {
+    if (e === "AC") {
       this.props.setEquation("0");
-    } 
-    else if (isNaN(e) && e !== "." && isNaN(equation[equation.length-1])){
-      this.props.setEquation(equation.slice(0, equation.length-1) + e);
+    } else if (isNaN(e) && e !== "." && isNaN(equation[equation.length - 1])) {
+      this.props.setEquation(equation.slice(0, equation.length - 1) + e);
     } else {
       e === "=" ? this.handleEquals() : this.props.setEquation(equation + e);
-
     }
-    
-    // decimal checker
 
+    // decimal checker
   }
-  getButtonDisplayText(value){ 
-    switch(value) { 
-      case 'AC':
-        return this.props.equation === "0" ? 'C' : 'AC';
-      case '/':
+  getButtonDisplayText(value) {
+    switch (value) {
+      case "AC":
+        return this.props.equation === "0" ? "C" : "AC";
+      case "/":
         return "÷";
-      case '*':
+      case "*":
         return "×";
       default:
         return value;
@@ -86,7 +82,6 @@ class Buttons extends Component {
       buttonArray.splice(4 * index + 3, 0, operationButtons[index]);
     }
 
-
     // Create array for all the cells in the table
     const rowCount = 5;
     const colCount = 4;
@@ -102,9 +97,13 @@ class Buttons extends Component {
         let currentIndex = 4 * outerIndex + innerIndex;
         let buttonClass = "button number_buttons";
         if (topRowButtons.includes(buttonArray[currentIndex])) {
-          buttonClass ="button top_row_buttons"
-        } else if(operationButtons.includes(buttonArray[currentIndex])) {
-          buttonClass = this.props.equation.charAt(this.props.equation.length-1) === buttonArray[currentIndex] && buttonArray[currentIndex] !== "=" ? "button operation_buttons active" : "button operation_buttons";
+          buttonClass = "button top_row_buttons";
+        } else if (operationButtons.includes(buttonArray[currentIndex])) {
+          buttonClass =
+            this.props.equation.charAt(this.props.equation.length - 1) ===
+              buttonArray[currentIndex] && buttonArray[currentIndex] !== "="
+              ? "button operation_buttons active"
+              : "button operation_buttons";
         } else if (buttonArray[currentIndex] === "0") {
           buttonClass = "zero_button number_buttons";
         }
