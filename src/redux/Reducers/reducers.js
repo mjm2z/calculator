@@ -10,7 +10,7 @@ const initialEquation = "0";
 export const equation = (state = initialEquation, action) => {
   if (action.type === "EQUATION") {
     console.log(`Here: ${action.equation}`);
-    return action.equation;
+    return action.equation.toString();
   }
   return state;
 };
