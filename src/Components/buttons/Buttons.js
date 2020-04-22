@@ -4,7 +4,8 @@ import PropTypes from "prop-types";
 import { actions, selectors } from "../../redux";
 import { connect } from "react-redux";
 import flow from "lodash.flow";
-import stringCalculator from "string-calculator";
+import { evaluate } from "mathjs";
+import { equation } from "../../redux/Reducers";
 
 class Buttons extends Component {
   constructor(props) {
@@ -25,23 +26,98 @@ class Buttons extends Component {
   // Bug at 099=. -> doesn't show 99. shows 0
   // - Maybe put current value in redux to make it easier for negative/positive state
   // Clicking pos/neg causes negative button to highlight
+  // Update readme
 
   handleEquals() {
-    this.props.setEquation(stringCalculator(this.props.equation));
+    let eq = this.props.equation;
+    if(isNaN(eq.charAt(eq.length-1)) && eq.charAt(eq.length-1) !== "." && eq.charAt(eq.length-1) !== ")"){
+      eq = eq.substring(0, eq.length-2)
+    }
+    let result = evaluate(eq + this.getCloseParen());
+    if ( result < 0) {
+      result = `(${result}`
+    }
+
+    this.props.setEquation(result);
 
     // pass equation string into api
   }
+
   handleButtonClick(e) {
     const { equation } = this.props;
+    // Handle AC
     if (e === "AC") {
       this.props.setEquation("0");
-    } else if (isNaN(e) && e !== "." && isNaN(equation[equation.length - 1])) {
-      this.props.setEquation(equation.slice(0, equation.length - 1) + e);
-    } else {
+    }
+    else if (e === "+/-"){
+      this.setSign();
+    }
+    else if (e === "."){
+      this.checkDecimal();
+    }
+    // Handle operations 
+    else if (isNaN(e) && e!=="="){
+      if (isNaN(equation[equation.length - 1])) {
+        this.props.setEquation(equation.slice(0, equation.length - 1) + this.getCloseParen() + e);
+      } else {
+        this.props.setEquation(equation + this.getCloseParen() + e);
+      }
+    }
+
+    // Handle equals or append number 
+    else {
       e === "=" ? this.handleEquals() : this.props.setEquation(equation + e);
     }
 
     // decimal checker
+  }
+  checkDecimal(){
+    let eq = this.props.equation;
+    if (isNaN(eq.charAt(eq.length-1))){
+      this.props.setEquation(eq + "0.");
+    } else {
+      for(let index=eq.length-1; index >= 0; index--) {
+        if(isNaN(eq.charAt(index))){
+          if(eq.charAt(index)!=="."){
+            this.props.setEquation(eq+".");
+          }
+          return;
+        }
+      }
+      this.props.setEquation(eq+".");
+    }
+  }
+  setSign(){
+    let eq = this.props.equation;
+    let index = eq.length-1;
+    for (index; index>0; index--){
+      if(isNaN(eq.charAt(index))){
+        break;
+      }
+    }
+    console.log("Pos/Neg Index: " + index)
+    if (index === 0){
+      this.props.setEquation("(-" + eq)
+    } else if ( index === eq.length -1) {
+      if(eq.charAt(index-1)==="("){
+        this.props.setEquation(eq.substring(0, index-1));
+      } else {
+        this.props.setEquation(eq + "(-")
+      }
+    } else {
+      if(eq.charAt(index-1)==="("){
+        this.props.setEquation(eq.substring(0, index-1)+ eq.substring(index+1));
+      } else {
+        this.props.setEquation(eq.substring(0, index) + eq.charAt(index) + "(-" + eq.substring(index+1) )
+      }
+    }
+
+  }
+  getCloseParen() {
+    const { equation } = this.props;
+    const opCount = (equation.match(/\(/g) || []).length;
+    const clCount = (equation.match(/\)/g) || []).length;
+    return opCount > clCount ? ")" : "";
   }
   getButtonDisplayText(value) {
     switch (value) {
