@@ -1,6 +1,5 @@
-export const getSign = (sign) => ({
-  type: "SIGN",
-  sign,
+export const setPercent = (percent) => ({
+  type: "PERCENT"
 });
 export const setEquation = (equation) => ({
   type: "EQUATION",

@@ -5,7 +5,6 @@ import { actions, selectors } from "../../redux";
 import { connect } from "react-redux";
 import flow from "lodash.flow";
 import { evaluate } from "mathjs";
-import { equation } from "../../redux/Reducers";
 
 class Buttons extends Component {
   constructor(props) {
@@ -15,61 +14,76 @@ class Buttons extends Component {
   }
   // ToDo
   // - Add color effect to selected operators
-  // / Add functionality for top buttons
+  // - Add functionality for top buttons
   // - Add functionality for equals
   // - Update button text to what they were before making them dynamic
-  // Shrink text as number gets larger
-  // Add symbol to indicate negative that isn't affected by operation overriding
-  // Add percent functionality -> need to think through this
+  // - Add symbol to indicate negative that isn't affected by operation overriding
+  // - Add percent functionality -> need to think through this
   // Clean up code / extra files
   // Add tests
-  // Bug at 099=. -> doesn't show 99. shows 0
+  // - Bug at 099=. -> doesn't show 99. shows 0
   // - Maybe put current value in redux to make it easier for negative/positive state
-  // Clicking pos/neg causes negative button to highlight
+  // - Clicking pos/neg causes negative button to highlight
   // Update readme
+  // Document code
+  // Remove console statements, extra comments, and format code
 
+  // When the equals is triggered calculate the equation and update the redux state
   handleEquals() {
     let eq = this.props.equation;
+    // Check if there is a dangling operation, if so remove it by shrinking the string
     if(isNaN(eq.charAt(eq.length-1)) && eq.charAt(eq.length-1) !== "." && eq.charAt(eq.length-1) !== ")"){
       eq = eq.substring(0, eq.length-2)
     }
+    // Use mathjs to evaluate the expression while adding a closing parenthesis if necessary
     let result = evaluate(eq + this.getCloseParen());
+    // If negative result add opening parenthesis but not closing
     if ( result < 0) {
       result = `(${result}`
     }
-
     this.props.setEquation(result);
-
-    // pass equation string into api
   }
 
   handleButtonClick(e) {
-    const { equation } = this.props;
-    // Handle AC
-    if (e === "AC") {
-      this.props.setEquation("0");
-    }
-    else if (e === "+/-"){
-      this.setSign();
-    }
-    else if (e === "."){
-      this.checkDecimal();
-    }
-    // Handle operations 
-    else if (isNaN(e) && e!=="="){
-      if (isNaN(equation[equation.length - 1])) {
-        this.props.setEquation(equation.slice(0, equation.length - 1) + this.getCloseParen() + e);
-      } else {
-        this.props.setEquation(equation + this.getCloseParen() + e);
-      }
-    }
+    console.log(`BUTTON CLICKED ${e}`)
+    const { equation, setEquation, setPercent  } = this.props;
+    switch (e) {
+      case "AC": 
+        setEquation("0");
+        break;
+      case "+/-":
+        this.setSign();
+        break;
+      case ".":
+        this.checkDecimal();
+        break;
+      case "%":
+        setPercent();
+        break;
+      case "=":
+        this.handleEquals();
+        break;
+      default:
+        if (isNaN(e) && e!=="="){
+          if (isNaN(equation[equation.length - 1])) {
+            console.log(`Equation: ${equation.slice(0, equation.length - 1) + this.getCloseParen() + e}`);
+    
+            setEquation(equation.slice(0, equation.length - 1) + this.getCloseParen() + e);
+          } else {
+            console.log(`Equation: ${equation + this.getCloseParen() + e}`);
+    
+            setEquation(equation + this.getCloseParen() + e);
+          }
+        }
+    
+        // Handle equals or append number 
+        else {
+          console.log(`Equation: ${equation + e}`);
+    
+          setEquation(equation + e);
+        }
 
-    // Handle equals or append number 
-    else {
-      e === "=" ? this.handleEquals() : this.props.setEquation(equation + e);
     }
-
-    // decimal checker
   }
   checkDecimal(){
     let eq = this.props.equation;
@@ -79,11 +93,15 @@ class Buttons extends Component {
       for(let index=eq.length-1; index >= 0; index--) {
         if(isNaN(eq.charAt(index))){
           if(eq.charAt(index)!=="."){
+            console.log(`Equation: ${eq+"."}`);
+
             this.props.setEquation(eq+".");
           }
           return;
         }
       }
+      console.log(`Equation: ${eq}.`);
+
       this.props.setEquation(eq+".");
     }
   }
@@ -97,17 +115,25 @@ class Buttons extends Component {
     }
     console.log("Pos/Neg Index: " + index)
     if (index === 0){
+      console.log(`Equation: (-${eq}`);
+
       this.props.setEquation("(-" + eq)
     } else if ( index === eq.length -1) {
       if(eq.charAt(index-1)==="("){
+        console.log(`Equation: ${eq.substring(0, index-1)}`);
+
         this.props.setEquation(eq.substring(0, index-1));
       } else {
+        console.log(`Equation: ${eq + "(-"}`);
+
         this.props.setEquation(eq + "(-")
       }
     } else {
       if(eq.charAt(index-1)==="("){
+        console.log(`Equation: ${eq + "(-"}`);
         this.props.setEquation(eq.substring(0, index-1)+ eq.substring(index+1));
       } else {
+        console.log(`Equation: ${eq.substring(0, index) + eq.charAt(index) + "(-" + eq.substring(index+1) }`);
         this.props.setEquation(eq.substring(0, index) + eq.charAt(index) + "(-" + eq.substring(index+1) )
       }
     }
@@ -122,7 +148,7 @@ class Buttons extends Component {
   getButtonDisplayText(value) {
     switch (value) {
       case "AC":
-        return this.props.equation === "0" ? "C" : "AC";
+        return this.props.equation === "0" ? "AC" : "C";
       case "/":
         return "÷";
       case "*":
@@ -132,7 +158,6 @@ class Buttons extends Component {
     }
   }
   renderButtons() {
-    console.log("Rendering buttons");
     const topRowButtons = ["AC", "+/-", "%"];
     // Order or numbers as they'll be added to table
     const numberButtons = [
@@ -192,6 +217,7 @@ class Buttons extends Component {
           >
             <button
               className={buttonClass}
+              id={`bt${currentIndex}`}
               onClick={() => this.handleButtonClick(buttonArray[currentIndex])}
               active="true"
             >
@@ -202,7 +228,7 @@ class Buttons extends Component {
       }
       htmlArray.push(<tr key={outerIndex}>{buttonCellArray}</tr>);
     }
-    return <tbody>{htmlArray}</tbody>;
+    return <tbody >{htmlArray}</tbody>;
   }
   render() {
     return (
@@ -214,14 +240,15 @@ class Buttons extends Component {
 }
 
 Buttons.propTypes = {
-  equation: PropTypes.string,
+  equation: PropTypes.string
 };
 export const mapStateToProps = (state) => ({
-  equation: selectors.getEquation(state),
+  equation: selectors.getEquation(state)
 });
 
 const mapDispatchToProps = {
   setEquation: actions.setEquation,
+  setPercent: actions.setPercent
 };
 
 const enhance = flow(connect(mapStateToProps, mapDispatchToProps));

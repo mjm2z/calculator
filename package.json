@@ -4,6 +4,8 @@
   "private": true,
   "dependencies": {
     "bootstrap": "^4.3.1",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.2",
     "lodash.flow": "^3.5.0",
     "mathjs": "^6.6.4",
     "react": "^16.9.0",

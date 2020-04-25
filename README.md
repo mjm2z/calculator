@@ -1,10 +1,17 @@
+ - Calculator web application that allows the user to enter and solve equations
+ - Written using React and Redux
+ - The entered equation is maintained in the Redux store
+
+ - It uses the node module 'mathjs' for computing the equations. (https://www.npmjs.com/package/mathjs)
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
 
 In the project directory, you can run:
 
-### `npm start`
+### `npm start` / `yarn start`
 
 Runs the app in the development mode.<br>
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
