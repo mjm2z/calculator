@@ -37,21 +37,51 @@ describe('Reducer Tests', () => {
         const expectedState1 = {currentEquation: "0.09", displayValue: "0.09"}
         let stateAfter = reducers.equation(startState, {type: "PERCENT" });
         expect(stateAfter).toEqual(expectedState1);
+
         startState = {currentEquation: "12*13(-14)+15", displayValue:"15"}
         const expectedState2 = {currentEquation: "12*13(-14)+0.15", displayValue: "0.15"}
         stateAfter = reducers.equation(startState, {type: "PERCENT" });
         expect(stateAfter).toEqual(expectedState2);
+
         startState = {currentEquation: "100", displayValue:"100"}
         const expectedState3 = {currentEquation: "1", displayValue: "1"}
         stateAfter = reducers.equation(startState, {type: "PERCENT" });
         expect(stateAfter).toEqual(expectedState3);
+
         startState = {currentEquation: "100.5", displayValue:"100.5"}
         const expectedState4 = {currentEquation: "1.005", displayValue: "1.005"}
         stateAfter = reducers.equation(startState, {type: "PERCENT" });
         expect(stateAfter).toEqual(expectedState4);
-        startState = {currentEquation: "100.5+(-6)*(-", displayValue:"-6"}
-        const expectedState5 = {currentEquation: "100.5+(-0.06)*(-", displayValue: "-0.06"}
+
+        startState = {currentEquation: "100.5+(-6)*(-0", displayValue:"-6"}
+        const expectedState5 = {currentEquation: "100.5+(-6)*(-0", displayValue: "-0"}
         stateAfter = reducers.equation(startState, {type: "PERCENT" });
+        expect(stateAfter).toEqual(expectedState5);
+    })
+    it('Given the reducer is called with an action with type SIGN and valid equation, it should switch the sign of the current number and return the correct equation and display value', ()=>{
+        let startState = {currentEquation: "09", displayValue:"9"}
+        const expectedState1 = {currentEquation: "(-09", displayValue: "-9"}
+        let stateAfter = reducers.equation(startState, {type: "SIGN" });
+        expect(stateAfter).toEqual(expectedState1);
+
+        startState = {currentEquation: "12*13(-14)+15", displayValue:"15"}
+        const expectedState2 = {currentEquation: "12*13(-14)+(-15", displayValue: "-15"}
+        stateAfter = reducers.equation(startState, {type: "SIGN" });
+        expect(stateAfter).toEqual(expectedState2);
+
+        startState = {currentEquation: "100", displayValue:"100"}
+        const expectedState3 = {currentEquation: "(-100", displayValue: "-100"}
+        stateAfter = reducers.equation(startState, {type: "SIGN" });
+        expect(stateAfter).toEqual(expectedState3);
+
+        startState = {currentEquation: "100.5", displayValue:"100.5"}
+        const expectedState4 = {currentEquation: "(-100.5", displayValue: "-100.5"}
+        stateAfter = reducers.equation(startState, {type: "SIGN" });
+        expect(stateAfter).toEqual(expectedState4);
+
+        startState = {currentEquation: "100.5+(-6)*(-0", displayValue:"-6"}
+        const expectedState5 = {currentEquation: "100.5+(-6)*0", displayValue: "0"}
+        stateAfter = reducers.equation(startState, {type: "SIGN" });
         expect(stateAfter).toEqual(expectedState5);
     })
 })

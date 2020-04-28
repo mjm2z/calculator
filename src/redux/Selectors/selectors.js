@@ -1,2 +1,2 @@
-export const getEquation = (state) => '0';
+export const getEquation = (state) => state.equation.currentEquation;
 export const getDisplayValue = (state) => state.equation.displayValue;

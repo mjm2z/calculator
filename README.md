@@ -1,11 +1,8 @@
  - Calculator web application that allows the user to enter and solve equations
  - Written using React and Redux
  - The entered equation is maintained in the Redux store
-
- - It uses the node module 'mathjs' for computing the equations. (https://www.npmjs.com/package/mathjs)
-
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+ - Tested using Jest
+ - Uses the node module 'mathjs' for computing the equations. (https://www.npmjs.com/package/mathjs)
 
 ## Available Scripts
 
@@ -19,10 +16,16 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 The page will reload if you make edits.<br>
 You will also see any lint errors in the console.
 
-### `npm test`
+### `npm test` / `yarn test`
 
 Launches the test runner in the interactive watch mode.<br>
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+
+### `yarn test:coverage`
+
+Launches the test runner in the interactive watch mode.<br>
+Creates a table of the test coverage for all the tested files.
+
 
 ### `npm run build`
 
