@@ -26,6 +26,10 @@ See the section about [running tests](https://facebook.github.io/create-react-ap
 Launches the test runner in the interactive watch mode.<br>
 Creates a table of the test coverage for all the tested files.
 
+### `yarn pretty`
+
+Formats all javascript files using Prettier
+
 
 ### `npm run build`
 

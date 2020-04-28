@@ -17,27 +17,30 @@ class Buttons extends Component {
   // format code using prettier
   // Clean up code / extra files
 
-
   // When the equals is triggered calculate the equation and update the redux state
   handleEquals() {
     let eq = this.props.equation;
     // Check if there is a dangling operation, if so remove it by shrinking the string
-    if(isNaN(eq.charAt(eq.length-1)) && eq.charAt(eq.length-1) !== "." && eq.charAt(eq.length-1) !== ")"){      
-      eq = eq.substring(0, eq.length-1)
+    if (
+      isNaN(eq.charAt(eq.length - 1)) &&
+      eq.charAt(eq.length - 1) !== "." &&
+      eq.charAt(eq.length - 1) !== ")"
+    ) {
+      eq = eq.substring(0, eq.length - 1);
     }
     // Use mathjs to evaluate the expression while adding a closing parenthesis if necessary
     let result = evaluate(eq + this.getCloseParen());
     // If negative result add opening parenthesis but not closing
-    if ( result < 0) {
-      result = `(${result}`
+    if (result < 0) {
+      result = `(${result}`;
     }
     this.props.setEquation(result);
   }
   // Handle each button click appropriately
   handleButtonClick(e) {
-    const { equation, setEquation, setPercent, setSign  } = this.props;
+    const { equation, setEquation, setPercent, setSign } = this.props;
     switch (e) {
-      case "AC": 
+      case "AC":
         setEquation("0");
         break;
       case "+/-":
@@ -54,35 +57,37 @@ class Buttons extends Component {
         break;
       default:
         // Append operation
-        if (isNaN(e)){
+        if (isNaN(e)) {
           // Remove existing trailing operation and close open parenthesis if previous number is negative
-          if (isNaN(equation[equation.length - 1])) {    
-            setEquation(equation.slice(0, equation.length - 1) + this.getCloseParen() + e);
-          } else {    
+          if (isNaN(equation[equation.length - 1])) {
+            setEquation(
+              equation.slice(0, equation.length - 1) + this.getCloseParen() + e
+            );
+          } else {
             setEquation(equation + this.getCloseParen() + e);
           }
         }
-        // Append number 
-        else {    
+        // Append number
+        else {
           setEquation(equation + e);
         }
     }
   }
   // Check for a decimal in the current number and do not add if one already exists
-  checkDecimal(){
+  checkDecimal() {
     let eq = this.props.equation;
-    if (isNaN(eq.charAt(eq.length-1))&&eq.charAt(eq.length-1)!=='.'){
+    if (isNaN(eq.charAt(eq.length - 1)) && eq.charAt(eq.length - 1) !== ".") {
       this.props.setEquation(eq + "0.");
     } else {
-      for(let index=eq.length-1; index >= 0; index--) {
-        if(isNaN(eq.charAt(index))){
-          if(eq.charAt(index)!=="."){
-            this.props.setEquation(eq+".");
+      for (let index = eq.length - 1; index >= 0; index--) {
+        if (isNaN(eq.charAt(index))) {
+          if (eq.charAt(index) !== ".") {
+            this.props.setEquation(eq + ".");
           }
           return;
         }
       }
-      this.props.setEquation(eq+".");
+      this.props.setEquation(eq + ".");
     }
   }
   // Return closing parenthesis if current number contains open parenthesis (indicating number is negative), otherwise return empty string
@@ -181,7 +186,7 @@ class Buttons extends Component {
       // Add buttons to current table row
       htmlArray.push(<tr key={outerIndex}>{buttonCellArray}</tr>);
     }
-    return <tbody >{htmlArray}</tbody>;
+    return <tbody>{htmlArray}</tbody>;
   }
   render() {
     return (
@@ -193,16 +198,16 @@ class Buttons extends Component {
 }
 
 Buttons.propTypes = {
-  equation: PropTypes.string
+  equation: PropTypes.string,
 };
 export const mapStateToProps = (state) => ({
-  equation: selectors.getEquation(state)
+  equation: selectors.getEquation(state),
 });
 
 const mapDispatchToProps = {
   setEquation: actions.setEquation,
   setPercent: actions.setPercent,
-  setSign: actions.setSign
+  setSign: actions.setSign,
 };
 
 const enhance = flow(connect(mapStateToProps, mapDispatchToProps));

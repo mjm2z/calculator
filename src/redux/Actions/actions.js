@@ -1,8 +1,8 @@
 export const setPercent = (percent) => ({
-  type: "PERCENT"
+  type: "PERCENT",
 });
 export const setSign = (percent) => ({
-  type: "SIGN"
+  type: "SIGN",
 });
 export const setEquation = (equation) => ({
   type: "EQUATION",
